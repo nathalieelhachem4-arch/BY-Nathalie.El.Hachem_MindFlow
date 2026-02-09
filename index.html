@@ -1,143 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MindFlow – Your Personal Wellness Universe</title>
-
-  <meta name="description" content="Official website of Nathalie El Hachem – MindFlow wellness universe, self growth, creativity, and personal journey.">
-
-  <style>
-    body {
-      background: #0f172a;
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-
-    header {
-      text-align: center;
-      padding: 30px 10px;
-    }
-
-    h1 { font-size: 36px; margin-bottom: 10px; }
-
-    .section {
-      background:#111827;
-      padding:20px;
-      margin:15px;
-      border-radius:10px;
-    }
-
-    textarea, input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      margin-top: 10px;
-      background: #0b1020;
-      color: white;
-    }
-
-    button {
-      background: #7c3aed;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 10px;
-      margin-top: 10px;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MindFlow — Nathalie El Hachem</title>
+<meta name="description" content="MindFlow — A joyful, interactive wellness space by Nathalie El Hachem. Rate moods, write, save, reflect — with login and cloud sync." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#0b1020; --bg2:#111827; --card:#0f162f;
+    --text:#eaf2ff; --muted:#9db2d7;
+    --accent:#8b5cf6; --accent2:#22d3ee; --good:#10b981; --warn:#f59e0b; --bad:#ef4444;
+    --ring: rgba(255,255,255,.15);
+    --shadow: 0 18px 50px rgba(0,0,0,.4);
+    --radius: 16px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;font-family:Poppins,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(139,92,246,.25), transparent),
+    radial-gradient(900px 500px at 110% -10%, rgba(34,211,238,.18), transparent),
+    linear-gradient(180deg, #0a0f22, #0a0f22 30%, #0b1020);
+    min-height:100dvh}
+  a{color:var(--accent2);text-decoration:none}
+  .container{max-width:1100px;margin:0 auto;padding:18px}
+  header.nav{
+    position:sticky;top:0;z-index:5;background:rgba(12,16,34,.75);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.06)
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 8px}
+  .brand{display:flex;gap:10px;align-items:center}
+  .logo{width:36px;height:36px;border-radius:50%;
+    background: conic-gradient(from 200deg, #8b5cf6, #22d3ee, #8b5cf6); box-shadow:0 0 14px #8b5cf666}
+  .brand h1{font-size:18px;margin:0;font-weight:600}
+  .nav-actions{display:flex;gap:8px;align-items:center}
+  button, .btn{
+    background:linear-gradient(180deg, #8b5cf6, #5b21b6);
+    color:white;border:none;padding:10px 14px;border-radius:12px;cursor:pointer;
+    box-shadow:var(--shadow);transition:.2s transform,.2s filter
+  }
+  button.secondary{background:linear-gradient(180deg,#22d3ee,#0ea5b7);color:#06222a}
+  button.ghost{background:transparent;border:1px solid var(--ring);color:var(--text);box-shadow:none}
+  button:hover{transform:translateY(-1px);filter:brightness(1.05)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:18px}
+  .card{
+    background:linear-gradient(180deg, rgba(20,25,55,.9), rgba(15,20,45,.9));
+    border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)
+  }
+  .card h3{margin:0 0 8px;font-size:18px}
+  .muted{color:var(--muted);font-size:14px}
+  .section-title{font-size:22px;margin:26px 8px 8px}
+  textarea, input[type="text"], input[type="email"], input[type="password"]{
+    width:100%;background:#0b1229;color:var(--text);border:1px solid rgba(255,255,255,.06);
+    border-radius:12px;padding:12px;outline:none
+  }
+  textarea{min-height:110px;resize:vertical}
+  .stars{display:flex;gap:6px}
+  .star{
+    width:34px;height:34px;border-radius:10px;border:1px solid rgba(255,255,255,.08);
+    display:grid;place-items:center;background:#0b1229;cursor:pointer;transition:.15s;
+  }
+  .star.active{background:linear-gradient(180deg,#22d3ee,#0891b2);color:#07151a;border-color:#0ea5b7}
+  .badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#111a36;border:1px solid rgba(255,255,255,.08);font-size:12px;color:#c8d7fb}
+  footer{margin:46px 0 20px;text-align:center;color:var(--muted)}
+  /* Modal */
+  .modal-back{position:fixed;inset:0;background:rgba(5,8,18,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:20}
+  .modal{width:min(520px,94vw);background:#0f162f;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+  .modal h2{margin:4px 0 12px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .row>*{flex:1}
+  .hidden{display:none}
+  .timeline .item{background:#0c1431;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px;margin:10px 0}
+  .timeline .time{color:#9db2d7;font-size:12px;margin-bottom:6px}
+</style>
 </head>
-
 <body>
-<header>
-  <h1>🌈 MindFlow</h1>
-  <p>Your personal wellness universe • Made by <strong>NATHALIE EL HACHEM</strong></p>
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="brand">
+      <div class="logo"></div>
+      <h1>MindFlow • by <span style="color:#22d3ee">Nathalie</span></h1>
+    </div>
+    <div class="nav-actions">
+      <span id="whoami" class="badge">Guest</span>
+      <button class="ghost" id="btn-login">Login</button>
+      <button class="secondary" id="btn-signup">Sign up</button>
+      <button class="ghost hidden" id="btn-logout">Logout</button>
+    </div>
+  </div>
 </header>
-<main>
 
-  <div class="section">
-    <h2>💬 Mood</h2>
-    <textarea id="moodNotes" placeholder="How are you feeling today?"></textarea>
-    <button onclick="saveMood()">Save Mood</button>
-  </div>
+<main class="container">
+  <h2 class="section-title">✨ Today</h2>
+  <section class="grid">
+    <article class="card">
+      <h3>💖 Affirmation</h3>
+      <p class="muted">Get an affirmation you can save to your journey.</p>
+      <div class="row">
+        <input id="affirmationText" type="text" placeholder="Click ▶ to generate, or write your own…" />
+        <button class="secondary" id="genAff">▶</button>
+      </div>
+      <div style="height:8px"></div>
+      <button id="saveAff" class="btn">Save affirmation</button>
+    </article>
 
-  <div class="section">
-    <h2>✨ Affirmations</h2>
-    <textarea id="userAffirmation" placeholder="Write your affirmation here..."></textarea>
-    <button onclick="saveAffirmation()">Save Affirmation</button>
-  </div>
+    <article class="card">
+      <h3>📖 Wisdom Quote</h3>
+      <p class="muted">Fresh wisdom for the day.</p>
+      <div class="row">
+        <input id="quoteText" type="text" placeholder="Click ▶ to generate…" />
+        <button class="secondary" id="genQuote">▶</button>
+      </div>
+      <div style="height:8px"></div>
+      <button id="saveQuote" class="btn">Save quote</button>
+    </article>
 
-  <div class="section">
-    <h2>📖 Wisdom</h2>
-    <textarea id="wisdomBox" placeholder="Write or paste a quote..."></textarea>
-    <button onclick="saveWisdom()">Save Wisdom</button>
-  </div>
+    <article class="card">
+      <h3>🎯 Daily Tasks</h3>
+      <p class="muted">Three tiny challenges to uplift you.</p>
+      <div id="tasksList" class="muted"></div>
+      <div style="height:8px"></div>
+      <button id="newTasks" class="secondary">↻ New set</button>
+      <button id="saveTasks" class="btn">Save tasks</button>
+    </article>
+  </section>
 
-  <div class="section">
-    <h2>🎨 Art Notes</h2>
-    <textarea id="artNotes" placeholder="Describe your art or ideas..."></textarea>
-    <button onclick="saveArt()">Save Art Note</button>
-  </div>
+  <h2 class="section-title">💬 Mood</h2>
+  <section class="grid">
+    <article class="card">
+      <h3>How are you feeling?</h3>
+      <div class="stars" id="stars">
+        <div class="star" data-v="1">😕</div>
+        <div class="star" data-v="2">🙂</div>
+        <div class="star" data-v="3">😊</div>
+        <div class="star" data-v="4">🤩</div>
+        <div class="star" data-v="5">🌟</div>
+      </div>
+      <div style="height:8px"></div>
+      <textarea id="moodNotes" placeholder="Add a note about your current mood…"></textarea>
+      <div style="height:8px"></div>
+      <button id="saveMood" class="btn">Save mood</button>
+    </article>
 
-  <div class="section">
-    <h2>📝 Poetry</h2>
-    <textarea id="poem" placeholder="Write your poem..."></textarea>
-    <button onclick="savePoem()">Save Poem</button>
-  </div>
+    <article class="card">
+      <h3>📝 Journal</h3>
+      <textarea id="journal" placeholder="Write your poem, story, thought…"></textarea>
+      <div style="height:8px"></div>
+      <button id="saveJournal" class="btn">Save entry</button>
+    </article>
+  </section>
 
-  <div class="section">
-    <h2>✍️ Story</h2>
-    <textarea id="story" placeholder="Write your story..."></textarea>
-    <button onclick="saveStory()">Save Story</button>
-  </div>
+  <h2 class="section-title">📚 Your Timeline</h2>
+  <section class="card">
+    <p class="muted">Entries appear here when you’re logged in.</p>
+    <div id="timeline" class="timeline"></div>
+  </section>
 
-  <div class="section">
-    <h2>🗣️ Freedom Wall</h2>
-    <textarea id="randomThoughts" placeholder="Write anything..."></textarea>
-    <button onclick="saveThoughts()">Save Thoughts</button>
-  </div>
-  <script>
-function saveMood() {
-  localStorage.setItem("mood", document.getElementById("moodNotes").value);
-  alert("Mood saved!");
-}
-
-function saveAffirmation() {
-  localStorage.setItem("affirmation", document.getElementById("userAffirmation").value);
-  alert("Affirmation saved!");
-}
-
-function saveWisdom() {
-  localStorage.setItem("wisdom", document.getElementById("wisdomBox").value);
-  alert("Wisdom saved!");
-}
-
-function saveArt() {
-  localStorage.setItem("artNotes", document.getElementById("artNotes").value);
-  alert("Art note saved!");
-}
-
-function savePoem() {
-  localStorage.setItem("poem", document.getElementById("poem").value);
-  alert("Poem saved!");
-}
-
-function saveStory() {
-  localStorage.setItem("story", document.getElementById("story").value);
-  alert("Story saved!");
-}
-
-function saveThoughts() {
-  localStorage.setItem("thoughts", document.getElementById("randomThoughts").value);
-  alert("Thoughts saved!");
-}
-</script>
-
+  <footer>
+    © 2026 • MindFlow • Made by NATHALIE EL HACHEM • All rights reserved
+    <div><span class="badge">v1.0 • Firebase login + cloud save</span></div>
+  </footer>
 </main>
-</body>
-</html>
+
+<!-- AUTH MODALS -->
+<div id="modalLogin" class="modal-back">
+  <div class="modal">
+    <h2>Login</h2>
+    <div class="row"><input id="loginEmail" type="email" placeholder="Email" /></div>
+    <div class="row"><input id="loginPass" type="password" placeholder="Password" /></div>
+    <div class="row">
+      <button id="doLogin" class="btn">Login</button>
+      <button id="doGoogle" class="secondary">Continue with Google</button>
+      <button class="ghost" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="modalSignup" class="modal-back">
+  <div class="modal">
+    <h2>Sign up</h2>
+    <div class="row"><input id="signupEmail" type="email" placeholder="Email" /></div>
+    <div class="row"><input id="signupPass" type="password" placeholder="Password (min 6 characters)" /></div>
+    <div class="row">
+      <button id="doSignup" class="btn">Create account</button>
+      <button class="ghost" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase (compat builds for browser / GitHub Pages) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+
+<script>
+  // --- Your Firebase config (SAFE to be public)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCuvn6pLCMPBt9MAHYyHLAGbRSPyhn4tZk",
+    authDomain: "nathalieelhachem-mindflow.firebaseapp.com",
+    projectId: "nathalieelhachem-mindflow",
+    storageBucket: "nathalieelhachem-mindflow.firebasestorage.app",
+    messagingSenderId: "126138590963",
+    appId: "1:126138590963:web:32903c1b39d5e20369f986",
+    measurementId: "G-69J92DH858"
+  };
+
+  // --- Init
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db   = firebase.firestore();
+
+  // --- UI helpers
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const modal = id => { const el = $(id); el.style.display='flex'; return el; }
+  $("[data-close]")?.addEventListener?.("click", e => e.target.closest(".modal-back").style.display='none');
+  $$("#btn-login").forEach?.(b=>b.addEventListener("click",()=>modal("#modalLogin")));
+  $("#btn-login").addEventListener("click",()=>$("#modalLogin").style.display='flex');
+  $("#btn-signup").addEventListener("click",()=>$("#modalSignup").style.display='flex');
+  $$("#modalLogin [data-close], #modalSignup [data-close]").forEach(x=>x.addEventListener("click",e=>e.target.closest(".modal-back").style.display='none'));
+
+  // Close when clicking backdrop
+  $$("#modalLogin, #modalSignup").forEach(back=>{
+    back.addEventListener("click",e=>{ if(e.target===back) back.style.display='none'; });
+  });
+
+  // --- Auth actions
+  $("#doSignup").addEventListener("click", async ()=>{
+    const email = $("#signupEmail").value.trim();
+    const pass  = $("#signupPass").value.trim();
+    try{
+      await auth.createUserWithEmailAndPassword(email, pass);
+      alert("Welcome! Account created.");
+      $("#modalSignup").style.display='none';
+    }catch(err){ alert(err.message); }
+  });
+
+  $("#doLogin").addEventListener("click", async ()=>{
+    const email = $("#loginEmail").value.trim();
+    const pass  = $("#loginPass").value.trim();
+    try{
+      await auth.signInWithEmailAndPassword(email, pass);
+      $("#modalLogin").style.display='none';
+    }catch(err){ alert(err.message); }
+  });
+
+  $("#doGoogle").addEventListener("click", async ()=>{
+    try{
+      const provider = new firebase.auth.GoogleAuthProvider();
+      await auth.signInWithPopup(provider);
+      $("#modalLogin").style.display='none';
+    }catch(err){ alert(err.message); }
+  });
+
+  $("#btn-logout").addEventListener("click", ()=>auth.signOut());
+
+  // --- Auth state
+  auth.onAuthStateChanged(user=>{
+    const who = $("#whoami");
+    if(user){
+      who.textContent = user.email || "User";
+      $("#btn-login").classList.add("hidden");
+      $("#btn-signup").classList.add("hidden");
+      $("#btn-logout").classList.remove("hidden");
+      loadTimeline();
+    }else{
+      who.textContent = "Guest";
+      $("#btn-login").classList.remove("hidden");
+      $("#btn-signup").classList.remove("hidden");
+      $("#btn-logout").classList.add("hidden");
+      $("#timeline").innerHTML = '<p class="muted">Login to see your saved entries.</p>';
+    }
+  });
+
+  // --- Stars rating UI
+  let moodRating = 0;
+  $$("#stars .star").forEach(st=>{
+    st.addEventListener("click", ()=>{
+      moodRating = Number(st.dataset.v);
+      $$("#stars .star").forEach(s=>s.classList.toggle("active", Number(s.dataset.v)<=moodRating));
+    });
+  });
+
+  // --- Generators
+  const AFFIRM = [
+    "I am resilient, growing a little more every day.",
+    "I choose peace over pressure.",
+    "My voice matters and my heart is brave.",
+    "I release what I can’t control and bloom anyway.",
+    "I deserve rest, love and bright opportunities."
+  ];
+  const QUOTES = [
+    "“Out of difficulties grow miracles.” — Jean de La Bruyère",
+    "“What you do today can improve all your tomorrows.” — Ralph Marston",
+    "“Courage is grace under pressure.” — Ernest Hemingway",
+    "“If you’re going through hell, keep going.” — Winston Churchill",
+    "“The only way out is through.” — Robert Frost"
+  ];
+  const TASKS = [
+    "5‑minute mindful breathing",
+    "Drink a big glass of water",
+    "Write 3 things you’re grateful for",
+    "Stretch for 3 minutes",
+    "Send a kind message to someone",
+    "Take a 10‑minute walk",
+    "Declutter 5 items",
+    "Name your top priority and do 10 minutes of it"
+  ];
+
+  const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+  const renderTasks = () => {
+    const t = [pick(TASKS), pick(TASKS), pick(TASKS)];
+    $("#tasksList").innerHTML = `<ul>${t.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+    return t;
+  };
+  $("#genAff").addEventListener("click", ()=>$("#affirmationText").value = pick(AFFIRM));
+  $("#genQuote").addEventListener("click", ()=>$("#quoteText").value = pick(QUOTES));
+  $("#newTasks").addEventListener("click", renderTasks);
+  renderTasks();
+
+  // --- Firestore helpers
+  function assertUser(){
+    const u = auth.currentUser;
+    if(!u){ alert("Please login first."); return null; }
+    return u;
+  }
+  async function saveEntry(type, data){
+    const u = assertUser(); if(!u) return;
+    const ref = db.collection("users").doc(u.uid).collection("entries");
+    await ref.add({ type, ...data, ts: firebase.firestore.FieldValue.serverTimestamp() });
+    alert("Saved!");
+    loadTimeline();
+  }
+  async function loadTimeline(){
+    const u = auth.currentUser; if(!u) return;
+    const ref = db.collection("users").doc(u.uid).collection("entries").orderBy("ts","desc").limit(30);
+    const snap = await ref.get();
+    const items = [];
+    snap.forEach(doc=>{
+      const d = doc.data();
+      const when = d.ts?.toDate ? d.ts.toDate().toLocaleString() : "Now";
+      let body = "";
