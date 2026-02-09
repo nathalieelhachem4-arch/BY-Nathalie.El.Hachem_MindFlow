@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MindFlow – Your Personal Wellness Universe</title>
+
+  <meta name="description" content="Official website of Nathalie El Hachem – MindFlow wellness universe, self growth, creativity, and personal journey.">
+
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    h1 { font-size: 36px; margin-bottom: 10px; }
+
+    .section {
+      background:#111827;
+      padding:20px;
+      margin:15px;
+      border-radius:10px;
+    }
+
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 10px;
+      background: #0b1020;
+      color: white;
+    }
+
+    button {
+      background: #7c3aed;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>🌈 MindFlow</h1>
+  <p>Your personal wellness universe • Made by <strong>NATHALIE EL HACHEM</strong></p>
+</header>
+<main>
+
+  <div class="section">
+    <h2>💬 Mood</h2>
+    <textarea id="moodNotes" placeholder="How are you feeling today?"></textarea>
+    <button onclick="saveMood()">Save Mood</button>
+  </div>
+
+  <div class="section">
+    <h2>✨ Affirmations</h2>
+    <textarea id="userAffirmation" placeholder="Write your affirmation here..."></textarea>
+    <button onclick="saveAffirmation()">Save Affirmation</button>
+  </div>
+
+  <div class="section">
+    <h2>📖 Wisdom</h2>
+    <textarea id="wisdomBox" placeholder="Write or paste a quote..."></textarea>
+    <button onclick="saveWisdom()">Save Wisdom</button>
+  </div>
+
+  <div class="section">
+    <h2>🎨 Art Notes</h2>
+    <textarea id="artNotes" placeholder="Describe your art or ideas..."></textarea>
+    <button onclick="saveArt()">Save Art Note</button>
+  </div>
+
+  <div class="section">
+    <h2>📝 Poetry</h2>
+    <textarea id="poem" placeholder="Write your poem..."></textarea>
+    <button onclick="savePoem()">Save Poem</button>
+  </div>
+
+  <div class="section">
+    <h2>✍️ Story</h2>
+    <textarea id="story" placeholder="Write your story..."></textarea>
+    <button onclick="saveStory()">Save Story</button>
+  </div>
+
+  <div class="section">
+    <h2>🗣️ Freedom Wall</h2>
+    <textarea id="randomThoughts" placeholder="Write anything..."></textarea>
+    <button onclick="saveThoughts()">Save Thoughts</button>
+  </div>
+  <script>
+function saveMood() {
+  localStorage.setItem("mood", document.getElementById("moodNotes").value);
+  alert("Mood saved!");
+}
+
+function saveAffirmation() {
+  localStorage.setItem("affirmation", document.getElementById("userAffirmation").value);
+  alert("Affirmation saved!");
+}
+
+function saveWisdom() {
+  localStorage.setItem("wisdom", document.getElementById("wisdomBox").value);
+  alert("Wisdom saved!");
+}
+
+function saveArt() {
+  localStorage.setItem("artNotes", document.getElementById("artNotes").value);
+  alert("Art note saved!");
+}
+
+function savePoem() {
+  localStorage.setItem("poem", document.getElementById("poem").value);
+  alert("Poem saved!");
+}
+
+function saveStory() {
+  localStorage.setItem("story", document.getElementById("story").value);
+  alert("Story saved!");
+}
+
+function saveThoughts() {
+  localStorage.setItem("thoughts", document.getElementById("randomThoughts").value);
+  alert("Thoughts saved!");
+}
+</script>
+
+</main>
+</body>
+</html>
