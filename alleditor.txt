@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MindFlow – Your Personal Wellness Universe</title>
+  <meta name="description" content="MindFlow: Your safe space for expression and growth — moods, affirmations, art, poetry, and more." />
+  <style>
+    :root{
+      --bg:#0f172a;       /* slate-900 */
+      --card:#111827;     /* gray-900 */
+      --muted:#94a3b8;    /* slate-400 */
+      --text:#e5e7eb;     /* gray-200 */
+      --accent:#7c3aed;   /* violet-600 */
+      --accent-2:#22d3ee; /* cyan-400 */
+      --good:#10b981;     /* emerald-500 */
+      --warn:#f59e0b;     /* amber-500 */
+      --danger:#ef4444;   /* red-500 */
+      --edge:#1f2937;     /* gray-800 */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background: radial-gradient(1200px 600px at 10% 0%, rgba(124,58,237,.25), transparent),
+                                     radial-gradient(900px 500px at 90% 0%, rgba(34,211,238,.15), transparent),
+                                     var(--bg);
+      color:var(--text); font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
+    a{color:var(--accent-2); text-decoration:none}
+    header{
+      padding:32px 20px 12px; text-align:center;
+    }
+    header h1{margin:0 0 6px; font-size:clamp(28px, 4vw, 40px)}
+    header p{margin:4px 0 18px; color:var(--muted)}
+    .wrap{max-width:1100px; margin:0 auto; padding:0 20px 60px}
+    .bar{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+      margin: 14px auto 26px;
+    }
+    .pill{
+      padding:8px 12px; border:1px solid var(--edge); border-radius:999px; color:var(--text);
+      background: linear-gradient(180deg, #111827, #0b1020);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+      cursor:pointer; transition: .2s transform, .2s border-color, .2s box-shadow;
+    }
+    .pill:hover{ transform: translateY(-1px); border-color:#2b354a; box-shadow: var(--shadow) }
+    .grid{
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:18px;
+    }
+    .card{
+      background: linear-gradient(180deg, #111827, #0e1222);
+      border:1px solid var(--edge);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card h3{margin:0 0 10px; font-size:18px}
+    textarea, input[type="text"]{
+      width:100%; padding:10px 12px; border-radius:10px; border:1px solid #2b354a; background:#0b1020; color:var(--text);
+      outline:none; box-shadow: inset 0 2px 6px rgba(0,0,0,.35);
+    }
+    textarea{min-height:110px; resize:vertical}
+    button.primary{
+      background: linear-gradient(180deg, #7c3aed, #5b21b6);
+      border:none; color:white; padding:10px 14px; border-radius:10px; cursor:pointer;
+      box-shadow: var(--shadow);
+    }
+    button.secondary{
+      background: linear-gradient(180deg, #22d3ee, #0891b2);
+      border:none; color:#081018; padding:10px 14px; border-radius:10px; cursor:pointer;
+      box-shadow: var(--shadow);
+    }
+    .muted{color:var(--muted); font-size:14px}
+    footer{margin:40px 0 10px; text-align:center; color:var(--muted)}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .row > *{flex:1}
+    .badge{display:inline-block; padding:4px 8px; border-radius:999px; background:#1b2234; border:1px solid #2b354a; color:#b9c2d6; font-size:12px}
+    .section-title{margin:30px 0 10px; font-size:22px}
+    .notice{border-left:4px solid var(--warn); padding:10px 12px; background:#0b1020; border-radius:8px}
+    .inline{display:inline-block; margin-right:8px}
+    .chips{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{padding:6px 10px; background:#0b1020; border:1px solid #2b354a; border-radius:999px; font-size:13px}
+    .spacer{height:8px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌈 MindFlow</h1>
+    <p>Your personal wellness universe • Made by <strong>NATHALIE EL HACHEM</strong></p>
+
+    <div class="row" style="max-width:640px; margin:14px auto;">
+      <input id="username" type="text" placeholder="Choose your username" />
+      <button class="primary" id="enterUniverse">Enter Your Universe 🚀</button>
+    </div>
+
+    <p class="muted notice">
+      ⚠️ <strong>How Your Data Works</strong> — Your entries are saved to this browser (local storage).
+      If you clear browser data, switch devices, or use another browser, your entries won’t appear there.
+      We can add real login + cloud saving later with Firebase.
+    </p>
+
+    <div class="bar" role="navigation" aria-label="Main">
+      <span class="pill" data-jump="mood">💬 Mood</span>
+      <span class="pill" data-jump="affirmations">✨ Affirmations</span>
+      <span class="pill" data-jump="wisdom">📖 Wisdom</span>
+      <span class="pill" data-jump="art">🎨 Create</span>
+      <span class="pill" data-jump="poetry">📝 Poetry</span>
+      <span class="pill" data-jump="story">✍️ Story</span>
+      <span class="pill" data-jump="freedom">🗣️ Freedom Wall</span>
+      <span class="pill" data-jump="challenges">🎯 Challenges</span>
+      <span class="pill" data-jump="games">🎮 Games</span>
+      <span class="pill" data-jump="spiritual">🙏 Spiritual</span>
+      <span class="pill" data-jump="journey">📚 Journey</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Mood -->
+    <section id="mood" class="card">
+      <h3>💬 How are you feeling?</h3>
+      <div class="chips">
+        <span class="chip" data-mood="Joyful">😄 Joyful</span>
+        <span class="chip" data-mood="Peaceful">🔔 Peaceful</span>
+        <span class="chip" data-mood="Anxious">😰 Anxious</span>
+        <span class="chip" data-mood="Sad">😢 Sad</span>
+        <span class="chip" data-mood="Excited">🤩 Excited</span>
+        <span class="chip" data-mood="Tired">😴 Tired</span>
+        <span class="chip" data-mood="Angry">😠 Angry</span>
+        <span class="chip" data-mood="Confused">😕 Confused</span>
+      </div>
+      <div class="spacer"></div>
+      <div class="row">
+        <textarea id="moodNotes" placeholder="Add a note about your current mood..."></textarea>
+      </div>
+      <div class="spacer"></div>
+      <button class="secondary" id="saveMood">💾 Save My Mood</button>
+    </section>
+
+    <h2 class="section-title" id="affirmations">✨ Daily Affirmations</h2>
+    <section class="grid">
+      <article class="card">
+        <div class="chips">
+          <span class="chip">Morning</span><span class="chip">Night</span><span class="chip">Work</span>
+          <span class="chip">Social</span><span class="chip">Family</span><span class="chip">Alone</span>
+          <span class="chip">Exam</span><span class="chip">Date</span><span class="chip">Conflict</span>
+          <span class="chip">Exercise</span><span class="chip">Travel</span><span class="chip">Change</span>
+        </div>
+        <div class="spacer"></div>
+        <textarea id="userAffirmation" placeholder="Write or paste your affirmation here..."></textarea>
+        <div class="spacer"></div>
+        <button class="secondary" id="saveAffirmation">💖 Save</button>
+      </article>
+
+      <article id="wisdom" class="card">
+        <h3>📖 Wisdom Quotes</h3>
+        <div class="chips">
+          <span class="chip">Motivation</span><span class="chip">Heartbreak</span><span class="chip">Success</span>
+          <span class="chip">Failure</span><span class="chip">Friendship</span><span class="chip">Courage</span>
+          <span class="chip">Patience</span><span class="chip">Gratitude</span><span class="chip">Change</span>
+          <span class="chip">Love</span><span class="chip">Creativity</span><span class="chip">Adventure</span>
+        </div>
+        <div class="spacer"></div>
+        <div class="row">
+          <textarea id="wisdomBox" placeholder="Paste or write a quote you like..."></textarea>
+        </div>
+        <div class="spacer"></div>
+        <button class="secondary" id="nextWisdom">🔁 Next Quote</button>
+      </article>
+    </section>
+
+    <h2 class="section-title" id="art">🎨 Art Studio</h2>
+    <section class="card">
+      <p class="muted">Simple canvas placeholder. I can add a real drawing canvas if you want.</p>
+      <div class="row">
+        <textarea id="artNotes" placeholder="Describe your artwork or ideas..."></textarea>
+      </div>
+      <div class="spacer"></div>
+      <button class="secondary" id="saveArt">🖼️ Save Artwork Note</button>
+    </section>
+
+    <h2 class="section-title" id="poetry">📝 Poetry Corner</h2>
+    <section class="card">
+      <textarea id="poem" placeholder="Write your poem here..."></textarea>
+      <div class="spacer"></div>
+      <button class="secondary" id="savePoem">🌹 Save Poem</button>
+    </section>
+
+    <h2 class="section-title" id="story">✍️ Story Writing</h2>
+    <section class="card">
+      <textarea id="story" placeholder="Write your story here..."></textarea>
+      <div class="spacer"></div>
+      <button class="secondary" id="saveStory">📚 Save Story</button>
+    </section>
+
+    <h2 class="section-title" id="freedom">🗣️ Freedom Wall</h2>
+    <section class="grid">
+      <article class="card">
+        <h3>💬 Random Thoughts</h3>
+        <textarea id="randomThoughts" placeholder="Whatever crosses your mind..."></textarea>
+        <div class="spacer"></div>
+        <button class="secondary" id="saveThoughts">🌊 Release</button>
+      </article>
+      <article class="card">
+        <h3>🎤 Vent Space</h3>
+        <textarea id="vent" placeholder="Scream into the void..."></textarea>
+        <div class="spacer"></div>
+        <button class="secondary" id="saveVent">💥 Let It Out</button>
+      </article>
+      <article class="card">
+        <h3>🌟 Dreams & Goals</h3>
+        <textarea id="dreams" placeholder="Manifest your future..."></textarea>
+        <div class="spacer"></div>
+        <button class="secondary" id="saveDreams">✨ Claim It</button>
+      </article>
+      <article class="card">
+        <h3>💌 Letter to Self</h3>
+        <textarea id="letter" placeholder="Write to past or future you..."></textarea>
+        <div class="spacer"></div>
+        <button class="secondary" id="saveLetter">🔐 Seal & Save</button>
+      </article>
+      <article class="card">
+        <h3>🙏 Gratitude Log</h3>
+        <textarea id="gratitude" placeholder="What are you thankful for?"></textarea>
+        <div class="spacer"></div>
+        <button class="secondary" id="saveGratitude">🙏 Count Blessings</button>
+      </article>
+      <article class="card">
+        <h3>💪 Affirmation Creator</h3>
+        <textarea id="affirmationCreator" placeholder="Write your own power words..."></textarea>
+        <div class="spacer"></div>
+        <button class="secondary" id="saveAffCreator">💪 Claim Power</button>
+      </article>
+    </section>
+
+    <h2 class="section-title" id="challenges">🎯 Daily Challenges</h2>
+    <section class="card">
+      <p class="muted">“New quests every single day!” — add real logic later if you want.</p>
+    </section>
+
+    <h2 class="section-title" id="games">🎮 Mini Games</h2>
+    <section class="grid">
+      <article class="card">
+        <h3>🫁 Breathe Circle</h3>
+        <p class="muted">Click start to begin</p>
+        <button class="secondary" id="startBreathing">🌬️ Start Breathing</button>
+      </article>
+      <article class="card">
+        <h3>🔥 Word Unscramble</h3>
+        <p class="muted">Placeholder — we can add a real word game later.</p>
+      </article>
+      <article class="card">
+        <h3>🧠 Emotion Quest</h3>
+        <p class="muted">Guess the emotion from the scenario — coming soon.</p>
+      </article>
+      <article class="card">
+        <h3>🧩 Memory Match</h3>
+        <p class="muted">Find matching emoji pairs — coming soon.</p>
+      </article>
+    </section>
+
+    <h2 class="section-title" id="spiritual">🙏 Prayer & Reflection</h2>
+    <section class="grid">
+      <article class="card">
+        <textarea id="prayer" placeholder="Write your prayer or reflection..."></textarea>
+        <div class="spacer"></div>
+        <button class="secondary" id="savePrayer">🙏 Save Prayer</button>
+      </article>
+      <article class="card">
+        <h3>🕯️ Light a Candle</h3>
+        <p class="muted">For remembrance & hope — we can animate a candle later.</p>
+      </article>
+      <article class="card">
+        <h3>🌸 Offering</h3>
+        <p class="muted">Share your gratitude — coming soon.</p>
+      </article>
+      <article class="card">
+        <h3>🎧 Meditation</h3>
+        <p class="muted">Connect with the Divine — we can embed audio later.</p>
+      </article>
+    </section>
+
+    <h2 class="section-title" id="journey">📚 Your Journey</h2>
+    <section class="card">
+      <p class="muted">Your saved entries will appear here by username.</p>
+      <div id="journeyList"></div>
+    </section>
+
+    <footer>
+      © 2024 • MindFlow • Made by NATHALIE EL HACHEM • All Rights Reserved
+      <div><span class="badge inline">v0.1 – local save only</span></div>
+    </footer>
+  </main>
+
+  <script>
+    // --- UTILITIES ---
+    const $ = (sel, el=document) => el.querySelector(sel);
+    const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+    const key = (u) => `mindflow:${u || (localStorage.getItem('mf:username')||'guest')}`;
+
+    // --- USER / NAV ---
+    const usernameInput = $('#username');
+    const enterBtn = $('#enterUniverse');
+    enterBtn.addEventListener('click', ()=>{
+      const u = (usernameInput.value || 'guest').trim();
+      localStorage.setItem('mf:username', u);
+      alert(`Welcome, ${u}!`);
+      renderJourney();
+    });
+
+    $$('.pill').forEach(p => p.addEventListener('click', () => {
+      const id = p.getAttribute('data-jump');
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }));
+
+    // --- SAVE HELPERS ---
+    function saveField(id, label){
+      const u = localStorage.getItem('mf:username') || 'guest';
+      const k = key(u);
+      const data = JSON.parse(localStorage.getItem(k) || '{}');
+      data[id] = { label, value: $(`#${id}`).value, ts: Date.now() };
+      localStorage.setItem(k, JSON.stringify(data));
+      renderJourney();
+    }
+
+    function renderJourney(){
+      const u = localStorage.getItem('mf:username') || 'guest';
+      const k = key(u);
+      const data = JSON.parse(localStorage.getItem(k) || '{}');
+      const list = $('#journeyList');
+      const entries = Object.values(data)
+        .sort((a,b)=>b.ts-a.ts)
+        .map(e => `<div class="card" style="margin:10px 0;"><div class="muted">${new Date(e.ts).toLocaleString()}</div><div style="white-space:pre-wrap">${(e.label||'Entry')}</div><hr style="border-color:#20283a"><div style="white-space:pre-wrap">${e.value || ''}</div></div>`)
+        .join('');
+      list.innerHTML = entries || '<p class="muted">No entries yet. Try saving something above.</p>';
+    }
+
+    // --- SECTION SAVE BUTTONS ---
+    $('#saveMood').addEventListener('click', ()=> saveField('moodNotes','💬 Mood'));
+    $('#saveAffirmation').addEventListener('click', ()=> saveField('userAffirmation','✨ Affirmation'));
+    $('#savePoem').addEventListener('click', ()=> saveField('poem','📝 Poem'));
+    $('#saveStory').addEventListener('click', ()=> saveField('story','✍️ Story'));
+    $('#saveThoughts').addEventListener('click', ()=> saveField('randomThoughts','💬 Random Thoughts'));
+    $('#saveVent').addEventListener('click', ()=> saveField('vent','🎤 Vent Space'));
+    $('#saveDreams').addEventListener('click', ()=> saveField('dreams','🌟 Dreams & Goals'));
+    $('#saveLetter').addEventListener('click', ()=> saveField('letter','💌 Letter to Self'));
+    $('#saveGratitude').addEventListener('click', ()=> saveField('gratitude','🙏 Gratitude'));
+    $('#saveAffCreator').addEventListener('click', ()=> saveField('affirmationCreator','💪 Affirmation Creator'));
+    $('#saveArt').addEventListener('click', ()=> saveField('artNotes','🎨 Artwork Note'));
+    $('#savePrayer').addEventListener('click', ()=> saveField('prayer','🙏 Prayer / Reflection'));
+
+    // Placeholder events
+    $('#nextWisdom').addEventListener('click', ()=>{
+      alert('We can plug in a real quote generator later.');
+    });
+    $('#startBreathing').addEventListener('click', ()=>{
+      alert('Breathing circle coming soon 🫁');
+    });
+
+    // Init
+    (function init(){
+      usernameInput.value = localStorage.getItem('mf:username') || '';
+      renderJourney();
+    })();
+  </script>
+</body>
+</html>
